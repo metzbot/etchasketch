@@ -36,8 +36,9 @@ function color() {
 
 defaultGrid();
 
-
 let cells = document.querySelectorAll('.cell');
+// mouse functionality
+if(!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))){
 let drawingEnabled = false;
 cells.forEach((cell) => {
   cell.addEventListener('mousedown', () => {
@@ -54,12 +55,35 @@ cells.forEach((cell) => {
       cell.style.backgroundColor = color();
   }
 });
+}
 
 function resetGrid() {
   cells.forEach((cell) => {
     cell.style.backgroundColor = '#FFF';
   })
 };
+
+// touch screen functionality
+if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+let cells = document.querySelectorAll('.cell');
+let drawingEnabled = false;
+cells.forEach((cell) => {
+  cell.addEventListener('touchstart', () => {
+    drawingEnabled = true;
+    drawing();
+  });
+  cell.addEventListener('touchmove', () => {
+    if(drawingEnabled == true) { drawing() }
+  window.addEventListener('touchend', () => {
+    drawingEnabled = false;
+    });
+  });
+  function drawing() {
+      cell.style.backgroundColor = color();
+  }
+});
+}
+
 
 const resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', () => { resetGrid() });
