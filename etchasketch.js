@@ -9,6 +9,23 @@ function defaultGrid() {
   makeColumns(16);
 }
 
+let createGridBtn = document.getElementById('create-grid');
+let rowField = document.getElementById('row-input');
+let columnField = document.getElementById('column-input');
+createGridBtn.addEventListener('click', () => {
+  if ((rowField.value > 64 || rowField.value < 1) || ((columnField.value > 64) || (columnField.value < 1))) {
+    return alert('Please enter values from 1-64');
+  } else {
+    let rows = document.querySelectorAll('.gridRow');
+    rows.forEach(gridRow => { gridRow.remove(); });
+    makeRows(rowField.value);
+    makeColumns(columnField.value);
+    cells = document.querySelectorAll('.cell');
+    drawingReset();
+  }
+});
+
+
 function makeRows(numRows) {
   for (r = 0; r < numRows; r++) {
     let row = document.createElement('div');
@@ -34,12 +51,11 @@ function color() {
   return color;
 }
 
-defaultGrid();
+//defaultGrid();
 
 let cells = document.querySelectorAll('.cell');
-// mouse functionality
-if(!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))){
 let drawingEnabled = false;
+function drawingReset() {
 cells.forEach((cell) => {
   cell.addEventListener('mousedown', () => {
     drawingEnabled = true;
@@ -61,20 +77,20 @@ function resetGrid() {
   cells.forEach((cell) => {
     cell.style.backgroundColor = '#FFF';
   })
-};
+}
 
-// touch screen functionality
+/* // touch screen functionality
 if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
 let cells = document.querySelectorAll('.cell');
 let drawingEnabled = false;
 cells.forEach((cell) => {
-  cell.addEventListener('touchstart', () => {
+  cell.addEventListener('pointerdown', () => {
     drawingEnabled = true;
     drawing();
   });
-  cell.addEventListener('touchmove', () => {
+  cell.addEventListener('pointerenter', () => {
     if(drawingEnabled == true) { drawing() }
-  window.addEventListener('touchend', () => {
+  window.addEventListener('pointerup', () => {
     drawingEnabled = false;
     });
   });
@@ -82,8 +98,28 @@ cells.forEach((cell) => {
       cell.style.backgroundColor = color();
   }
 });
-}
+} */
 
-
+// reset button
 const resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', () => { resetGrid() });
+
+
+// the unholy randomizer block of ugly code
+let randomTimer = '';
+let randomCell = '';
+function randomColor() {
+  if (randomOn == true) {
+  randomCell = cells[ Math.floor(Math.random() * cells.length) ];
+  randomCell.style.backgroundColor = color();
+  randomTimer = setTimeout(randomColor,100);
+  }
+}
+let randomOn = false;
+const randomizer = document.getElementById('randomizer');
+randomizer.addEventListener('click', () => {
+  randomOn = !randomOn;
+  randomColor();
+});
+
+

@@ -2,6 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  touch-action: none;
 }
 
 #grid-wrapper {
@@ -18,7 +19,8 @@
 
 .cell {
   border: 1px solid black;
-  min-width: 20px;
-  min-height: 20px;
+  min-width: 10px;
+  min-height: 10px;
   float: left;
+  transition: background-color .5s;
 }
