@@ -3,6 +3,25 @@
   margin: 0;
   padding: 0;
   touch-action: none;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: bold;
+  background-color: grey;
+}
+
+#title {
+  margin-top: 20px;
+}
+
+input {
+  width: 60px;
+  text-align: center;
+}
+
+button {
+  border: 2px solid black;
+  border-radius: 0;
+  margin: 1px;
+  padding: 1px 5px;
 }
 
 #grid-wrapper {
@@ -18,7 +37,7 @@
 }
 
 .cell {
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.5);
   min-width: 10px;
   min-height: 10px;
   float: left;

@@ -75,7 +75,7 @@ cells.forEach((cell) => {
 
 function resetGrid() {
   cells.forEach((cell) => {
-    cell.style.backgroundColor = '#FFF';
+    cell.style.backgroundColor = 'grey';
   })
 }
 
